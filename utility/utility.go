@@ -4,7 +4,7 @@ import (
     "fmt"
     "log"
     "os"
-    "os/user"
+    "github.com/mitchellh/go-homedir"
     "gopkg.in/ini.v1"
 )
 
@@ -14,14 +14,14 @@ type Util struct {
 }
 
 func NewUtil() *Util {
-    usr, err := user.Current()
+    home, err := homedir.Dir()
     if err != nil {
         log.Fatalln(err)
     }
     util := &Util {
         ConfigPath: fmt.Sprintf(
             "%s%s.twhelp.ini",
-            string(usr.HomeDir),
+            home,
             string(os.PathSeparator),
         ),
         Apps: make(map[string]*[]string, 8),
