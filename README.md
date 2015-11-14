@@ -1,6 +1,6 @@
 # twhelp-go
 
-Twitter OAuth CLI Helper distributed by Golang cross-compilation.
+Twitter OAuth CLI Helper distributed by Golang cross-compilation.  
 It has migrated from [mpyw/twhelp](https://github.com/mpyw/twhelp).
 
 ## Requirements
