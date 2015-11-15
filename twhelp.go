@@ -108,7 +108,7 @@ func main() {
     }
 
 if (twist) {
-format = `$to = new TwistOAuth(
+format = `$to = new \TwistOAuth(
     "%s",
     "%s",
     "%s",
@@ -130,5 +130,5 @@ format = `%s
 }
 
     fmt.Printf(format, t.ConsumerKey, t.ConsumerSecret, t.OAuthToken, t.OAuthTokenSecret)
-    
+
 }
