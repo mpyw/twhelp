@@ -6,6 +6,7 @@ import (
     "net/http/cookiejar"
     "net/url"
     "io/ioutil"
+    "../cabundle"
 )
 
 type Session struct {
@@ -15,7 +16,10 @@ type Session struct {
 
 func NewSession() *Session {
     jar, _ := cookiejar.New(nil)
-    return &Session{Client: http.Client{Jar: jar}}
+    return &Session{Client: http.Client{
+        Jar: jar,
+        Transport: cabundle.GetTransport(),
+    }}
 }
 
 func (sess *Session) SetAuthenticityToken(token string) {

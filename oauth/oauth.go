@@ -13,6 +13,7 @@ import (
     "net/http"
     "net/url"
     "io/ioutil"
+    "../cabundle"
 )
 
 type Credential struct {
@@ -120,7 +121,7 @@ func (t *Credential) renew(
     req, _ := http.NewRequest("POST", uri, reader)
     req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
     req.Header.Add("Authorization", "OAuth " + encodeMap(oauthParams, ", ", "\""))
-    resp, rerr := http.DefaultClient.Do(req)
+    resp, rerr := cabundle.GetClient().Do(req)
     if rerr != nil {
         log.Fatalln(rerr)
     }
