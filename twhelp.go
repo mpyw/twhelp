@@ -104,7 +104,6 @@ func main() {
         os.Stderr.WriteString("Access here for authorization: " + uri + "\n")
         verifier := prompter.PromptTrimmed("PIN: ")
         t = t.RenewWithAccessToken(map[string]string {}, &verifier)
-        fmt.Println(t)
     }
 
 if (twist) {
