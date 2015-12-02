@@ -8,7 +8,7 @@ It has migrated from [mpyw/twhelp](https://github.com/mpyw/twhelp).
 **Nothing**.  
 Feel free to download from [releases](https://github.com/mpyw/twhelp-go/releases).
 
-...Oops, 64bit(amd64) CPU architecture required at least.
+...Oops, x64(amd64) CPU architecture required at least.
 
 ## Usage
 
