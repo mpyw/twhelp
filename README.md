@@ -62,17 +62,3 @@ consumer_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 mpyw@localhost:~$
 ```
-
-## `~/.twhelp.ini` schema
-
-```ini
-[my_app_01]
-consumer_key    = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-consumer_secret = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-[my_app_02]
-consumer_key    = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-consumer_secret = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-...
-```
