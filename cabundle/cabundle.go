@@ -1,11 +1,11 @@
 package cabundle
 
 import (
-    "unsafe"
-    "reflect"
-    "net/http"
-    "crypto/x509"
     "crypto/tls"
+    "crypto/x509"
+    "net/http"
+    "reflect"
+    "unsafe"
 )
 
 var strData = `##
@@ -3892,20 +3892,19 @@ func GetCertPool() *x509.CertPool {
 }
 
 func GetTlsConfig() *tls.Config {
-    return &tls.Config {
+    return &tls.Config{
         RootCAs: GetCertPool(),
     }
 }
 
 func GetTransport() *http.Transport {
-    return &http.Transport {
+    return &http.Transport{
         TLSClientConfig: GetTlsConfig(),
     }
 }
 
 func GetClient() *http.Client {
-    return &http.Client {
+    return &http.Client{
         Transport: GetTransport(),
     }
 }
-

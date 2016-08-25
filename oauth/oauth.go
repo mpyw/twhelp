@@ -1,25 +1,25 @@
 package oauth
 
 import (
-    "log"
-    "fmt"
-    "time"
-    "sort"
-    "strings"
+    "../cabundle"
     "crypto/hmac"
     "crypto/rand"
     "crypto/sha1"
     "encoding/base64"
+    "fmt"
+    "io/ioutil"
+    "log"
     "net/http"
     "net/url"
-    "io/ioutil"
-    "../cabundle"
+    "sort"
+    "strings"
+    "time"
 )
 
 type Credential struct {
-    ConsumerKey string
-    ConsumerSecret string
-    OAuthToken string
+    ConsumerKey      string
+    ConsumerSecret   string
+    OAuthToken       string
     OAuthTokenSecret string
 }
 
@@ -75,7 +75,7 @@ func generateNonce(n int) string {
     bytes := make([]byte, n)
     rand.Read(bytes)
     for i, b := range bytes {
-        bytes[i] = chars[b % byte(len(chars))]
+        bytes[i] = chars[b%byte(len(chars))]
     }
     return string(bytes)
 }
@@ -107,12 +107,12 @@ func (t *Credential) renew(
     }
     base := mergeMap(additionalParams, oauthParams)
     oauthParams["oauth_signature"] = generateSignature(
-        strings.Join(forStrings(encodeRFC3986, []string {
+        strings.Join(forStrings(encodeRFC3986, []string{
             "POST",
             uri,
             encodeMap(base, "&", ""),
         }), "&"),
-        strings.Join(forStrings(encodeRFC3986, []string {
+        strings.Join(forStrings(encodeRFC3986, []string{
             t.ConsumerSecret,
             t.OAuthTokenSecret,
         }), "&"),
@@ -120,7 +120,7 @@ func (t *Credential) renew(
     reader := strings.NewReader(encodeMap(additionalParams, "&", ""))
     req, _ := http.NewRequest("POST", uri, reader)
     req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-    req.Header.Add("Authorization", "OAuth " + encodeMap(oauthParams, ", ", "\""))
+    req.Header.Add("Authorization", "OAuth "+encodeMap(oauthParams, ", ", "\""))
     resp, rerr := cabundle.GetClient().Do(req)
     if rerr != nil {
         log.Fatalln(rerr)
@@ -142,7 +142,7 @@ func (t *Credential) renew(
 func (t *Credential) RenewWithRequestToken() *Credential {
     return t.renew(
         "https://api.twitter.com/oauth/request_token",
-        map[string]string {},
+        map[string]string{},
         nil,
     )
 }

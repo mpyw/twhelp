@@ -1,10 +1,10 @@
 package prompt
 
 import (
-    "os"
     "bufio"
-    "strings"
     "github.com/howeyc/gopass"
+    "os"
+    "strings"
 )
 
 type Prompter struct {
@@ -12,7 +12,7 @@ type Prompter struct {
 }
 
 func NewPrompter() *Prompter {
-    return &Prompter { bufio.NewScanner(os.Stdin) }
+    return &Prompter{bufio.NewScanner(os.Stdin)}
 }
 
 func (pr *Prompter) PromptTrimmed(caption string) string {

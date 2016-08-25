@@ -2,17 +2,17 @@ package utility
 
 import (
     "fmt"
+    "github.com/mitchellh/go-homedir"
+    "gopkg.in/ini.v1"
     "log"
     "os"
     "strings"
-    "github.com/mitchellh/go-homedir"
-    "gopkg.in/ini.v1"
 )
 
 type Util struct {
-    ConfigPath string
+    ConfigPath     string
     CustomAppNames string
-    Apps map[string]*[]string
+    Apps           map[string]*[]string
 }
 
 func NewUtil() *Util {
@@ -20,7 +20,7 @@ func NewUtil() *Util {
     if err != nil {
         log.Fatalln(err)
     }
-    util := &Util {
+    util := &Util{
         ConfigPath: fmt.Sprintf(
             "%s%s.twhelp.ini",
             home,
@@ -28,35 +28,35 @@ func NewUtil() *Util {
         ),
         Apps: make(map[string]*[]string, 8),
     }
-    util.Apps["android"] = &[]string {
+    util.Apps["android"] = &[]string{
         "3nVuSoBZnx6U4vzUxf5w",
         "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys",
     }
-    util.Apps["win"] = &[]string {
+    util.Apps["win"] = &[]string{
         "TgHNMa7WZE7Cxi1JbkAMQ",
         "SHy9mBMBPNj3Y17et9BF4g5XeqS4y3vkeW24PttDcY",
     }
-    util.Apps["wp"] = &[]string {
+    util.Apps["wp"] = &[]string{
         "yN3DUNVO0Me63IAQdhTfCA",
         "c768oTKdzAjIYCmpSNIdZbGaG0t6rOhSFQP0S5uC79g",
     }
-    util.Apps["google"] = &[]string {
+    util.Apps["google"] = &[]string{
         "iAtYJ4HpUVfIUoNnif1DA",
         "172fOpzuZoYzNYaU3mMYvE8m8MEyLbztOdbrUolU",
     }
-    util.Apps["iphone"] = &[]string {
+    util.Apps["iphone"] = &[]string{
         "IQKbtAYlXLripLGPWd0HUA",
         "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU",
     }
-    util.Apps["ipad"] = &[]string {
+    util.Apps["ipad"] = &[]string{
         "CjulERsDeqhhjSme66ECg",
         "IQWdVyqFxghAtURHGeGiWAsmCAGmdW3WmbEx6Hck",
     }
-    util.Apps["mac"] = &[]string {
+    util.Apps["mac"] = &[]string{
         "3rJOl1ODzm9yZy63FACdg",
         "5jPoQ5kQvMJFDYRNE8bQ4rHuds4xJqhvgNJM4awaE8",
     }
-    util.Apps["deck"] = &[]string {
+    util.Apps["deck"] = &[]string{
         "yT577ApRtZw51q4NPMPPOQ",
         "3neq3XqN5fO3obqwZoajavGFCUrC42ZfbrLXy5sCv8",
     }
@@ -90,7 +90,7 @@ func NewUtil() *Util {
             )
         } else {
             util.CustomAppNames = fmt.Sprintf(
-`
+                `
 Your own applications also can be defined in %s
 Example:
 
@@ -104,7 +104,7 @@ consumer_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
 
 func (util *Util) Usage() {
-os.Stderr.WriteString(fmt.Sprintf(`Usage: %s [options]
+    os.Stderr.WriteString(fmt.Sprintf(`Usage: %s [options]
 Options:
   -h, --help          Show help.
 

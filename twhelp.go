@@ -1,35 +1,35 @@
 package main
 
-import(
-    "fmt"
-    "os"
-    "log"
-    "regexp"
-    "github.com/pborman/getopt"
-    "net/url"
-    "./utility"
-    "./prompt"
+import (
     "./oauth"
+    "./prompt"
     "./session"
+    "./utility"
+    "fmt"
+    "github.com/pborman/getopt"
+    "log"
+    "net/url"
+    "os"
+    "regexp"
 )
 
 func main() {
     var (
         format string
-        t *oauth.Credential
-        help bool
-        ini bool
-        yaml bool
-        array bool
-        assoc bool
-        json bool
-        xauth bool
+        t      *oauth.Credential
+        help   bool
+        ini    bool
+        yaml   bool
+        array  bool
+        assoc  bool
+        json   bool
+        xauth  bool
         oauth_ bool
-        ck string
-        cs string
-        sn string
-        pw string
-        app string
+        ck     string
+        cs     string
+        sn     string
+        pw     string
+        app    string
     )
     util := utility.NewUtil()
     prompter := prompt.NewPrompter()
@@ -74,8 +74,8 @@ func main() {
             pw = prompter.PromptMasked("password: ")
         }
         if xauth {
-            t = (&oauth.Credential{ck, cs, "", ""}).RenewWithAccessToken(map[string]string {
-                "x_auth_mode": "client_auth",
+            t = (&oauth.Credential{ck, cs, "", ""}).RenewWithAccessToken(map[string]string{
+                "x_auth_mode":     "client_auth",
                 "x_auth_username": sn,
                 "x_auth_password": pw,
             }, nil)
@@ -95,13 +95,13 @@ func main() {
                 expr := `<code>([^<]+)</code>`
                 matches := regexp.MustCompile(expr).FindSubmatch(sess.Post(uri, &url.Values{
                     "session[username_or_email]": {sn},
-                    "session[password]": {pw},
+                    "session[password]":          {pw},
                 }))
                 if matches == nil {
                     log.Fatalln("Wrong username or password. Otherwise, you may have to verify your email address.")
                 }
                 verifier := string(matches[1])
-                t = t.RenewWithAccessToken(map[string]string {}, &verifier)
+                t = t.RenewWithAccessToken(map[string]string{}, &verifier)
             }
         }
     } else {
@@ -109,52 +109,52 @@ func main() {
         uri := "https://api.twitter.com/oauth/authorize?force_login=1&oauth_token=" + t.OAuthToken
         os.Stderr.WriteString("Access here for authorization: " + uri + "\n")
         verifier := prompter.PromptTrimmed("PIN: ")
-        t = t.RenewWithAccessToken(map[string]string {}, &verifier)
+        t = t.RenewWithAccessToken(map[string]string{}, &verifier)
     }
 
-if (ini) {
-format = `consumer_key        = "%s"
+    if ini {
+        format = `consumer_key        = "%s"
 consumer_secret     = "%s"
 access_token        = "%s"
 access_token_secret = "%s"
 `
-} else if (yaml) {
-format = `consumer_key:        "%s"
+    } else if yaml {
+        format = `consumer_key:        "%s"
 consumer_secret:     "%s"
 access_token:        "%s"
 access_token_secret: "%s"
 `
-} else if (array) {
-format = `[
+    } else if array {
+        format = `[
     "%s",
     "%s",
     "%s",
     "%s"
 ]
 `
-} else if (assoc) {
-format = `[
+    } else if assoc {
+        format = `[
     "consumer_key"        => "%s",
     "consumer_secret"     => "%s",
     "access_token"        => "%s",
     "access_token_secret" => "%s",
 ]
 `
-} else if (json) {
-format = `{
+    } else if json {
+        format = `{
     "consumer_key":        "%s",
     "consumer_secret":     "%s",
     "access_token":        "%s",
     "access_token_secret": "%s"
 }
 `
-} else {
-format = `%s
+    } else {
+        format = `%s
 %s
 %s
 %s
 `
-}
+    }
 
     fmt.Printf(format, t.ConsumerKey, t.ConsumerSecret, t.OAuthToken, t.OAuthTokenSecret)
 

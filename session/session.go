@@ -1,23 +1,23 @@
 package session
 
 import (
+    "../cabundle"
+    "io/ioutil"
     "log"
     "net/http"
     "net/http/cookiejar"
     "net/url"
-    "io/ioutil"
-    "../cabundle"
 )
 
 type Session struct {
-    Client http.Client
+    Client            http.Client
     AuthenticityToken string
 }
 
 func NewSession() *Session {
     jar, _ := cookiejar.New(nil)
     return &Session{Client: http.Client{
-        Jar: jar,
+        Jar:       jar,
         Transport: cabundle.GetTransport(),
     }}
 }
