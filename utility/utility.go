@@ -4,12 +4,14 @@ import (
     "fmt"
     "log"
     "os"
+    "strings"
     "github.com/mitchellh/go-homedir"
     "gopkg.in/ini.v1"
 )
 
 type Util struct {
     ConfigPath string
+    CustomAppNames string
     Apps map[string]*[]string
 }
 
@@ -63,20 +65,39 @@ func NewUtil() *Util {
         if err != nil {
             log.Fatalln(err)
         }
+        customAppNames := make([]string, 0)
         for _, name := range cfg.SectionStrings() {
             if name == "DEFAULT" {
                 continue
             }
             section := cfg.Section(name)
-            ck, ckerr := section.GetKey("ck")
+            ck, ckerr := section.GetKey("consumer_key")
             if ckerr != nil {
-                log.Fatalln(fmt.Sprintf(`"ck" for %s does not exist`, name))
+                log.Fatalln(fmt.Sprintf(`"consumer_key" for %s does not exist`, name))
             }
-            cs, cserr := section.GetKey("cs")
+            cs, cserr := section.GetKey("consumer_secret")
             if cserr != nil {
-                log.Fatalln(fmt.Sprintf(`"cs" for %s does not exist`, name))
+                log.Fatalln(fmt.Sprintf(`"consumer_secret" for %s does not exist`, name))
             }
             util.Apps[name] = &[]string{ck.String(), cs.String()}
+            customAppNames = append(customAppNames, name)
+        }
+        if len(customAppNames) > 0 {
+            util.CustomAppNames = fmt.Sprintf(
+                "Config File: %s\nCustom Apps: %s\n",
+                util.ConfigPath,
+                strings.Join(customAppNames, ", "),
+            )
+        } else {
+            util.CustomAppNames = fmt.Sprintf(
+`
+Your own applications also can be defined in %s
+Example:
+
+[my_app_01]
+consumer_key    = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+consumer_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+`, util.ConfigPath)
         }
     }
     return util
@@ -90,12 +111,15 @@ Options:
 [ Output Format ]
 
   Default             Output line by line.
-  -t, --twist         Output as TwistOAuth-style constrctive code.
-  -v, --var           Output as variable line by line.
+  -i, --ini           Output as INI.
+  -y, --yaml          Output as YAML.
+  -a, --array         Output as array that compatible with most languages
+  -A, --assoc         Output as PHP-style associative array.
+  -j, --json          Output as JSON.
 
 [ OAuth Process ]
 
-  Default             DirectOAuth. (xAuth manipulation with OAuth)
+  Default             xAuth manipulation with OAuth scraping.
   -x, --xauth         Pure xAuth. Only available with official keys.
   -o, --oauth         Pure OAuth. You have to authorize via web browser.
 
@@ -107,7 +131,7 @@ Options:
   --ck  <value>       Specify consumer_key in advance.
   --cs  <value>       Specify consumer_secret in advance.
   --sn  <value>       Specify screen_name or email in advance.
-  --pw  <value>       Specify password in advance. (DEPRECATED)
+  --pw  <value>       Specify password in advance. (Not masked, DEPRECATED)
   --app <value>       Speficy consumer_key and consumer_secret with app name.
 
                       app name | full name
@@ -121,7 +145,6 @@ Options:
                       mac      | Twitter for Mac
                       deck     | TweetDeck
 
-Your own applications also can be defined in %s
-Refer to the documentation.
-`, os.Args[0], util.ConfigPath))
+%s
+`, os.Args[0], util.CustomAppNames))
 }

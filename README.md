@@ -1,12 +1,11 @@
-# twhelp-go
+# twhelp
 
 Twitter OAuth CLI Helper distributed by Golang cross-compilation.  
-It has migrated from [mpyw/twhelp](https://github.com/mpyw/twhelp).
 
 ## Requirements
 
 **Nothing**.  
-Feel free to download from [releases](https://github.com/mpyw/twhelp-go/releases).
+Feel free to download from [releases](https://github.com/mpyw/twhelp/releases).
 
 ...Oops, x64(amd64) CPU architecture required at least.
 
@@ -14,20 +13,21 @@ Feel free to download from [releases](https://github.com/mpyw/twhelp-go/releases
 
 ```ShellSession
 mpyw@localhost:~$ ./twhelp -h
-Usage: ./twhelp [options]
 Options:
-
   -h, --help          Show help.
 
 [ Output Format ]
 
   Default             Output line by line.
-  -t, --twist         Output as TwistOAuth-style constrctive code.
-  -v, --var           Output as variable line by line.
+  -i, --ini           Output as INI.
+  -y, --yaml          Output as YAML.
+  -a, --array         Output as array that compatible with most languages
+  -A, --assoc         Output as PHP-style associative array.
+  -j, --json          Output as JSON.
 
 [ OAuth Process ]
 
-  Default             DirectOAuth. (xAuth manipulation with OAuth)
+  Default             xAuth manipulation with OAuth scraping.
   -x, --xauth         Pure xAuth. Only available with official keys.
   -o, --oauth         Pure OAuth. You have to authorize via web browser.
 
@@ -39,7 +39,7 @@ Options:
   --ck  <value>       Specify consumer_key in advance.
   --cs  <value>       Specify consumer_secret in advance.
   --sn  <value>       Specify screen_name or email in advance.
-  --pw  <value>       Specify password in advance. (DEPRECATED)
+  --pw  <value>       Specify password in advance. (Not masked, DEPRECATED)
   --app <value>       Speficy consumer_key and consumer_secret with app name.
 
                       app name | full name
@@ -54,7 +54,12 @@ Options:
                       deck     | TweetDeck
 
 Your own applications also can be defined in /Users/mpyw/.twhelp.ini
-Refer to the documentation.
+Example:
+
+[my_app_01]
+consumer_key    = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+consumer_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
 mpyw@localhost:~$
 ```
 
@@ -62,12 +67,12 @@ mpyw@localhost:~$
 
 ```ini
 [my_app_01]
-ck = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-cs = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+consumer_key    = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+consumer_secret = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 [my_app_02]
-ck = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-cs = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+consumer_key    = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+consumer_secret = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ...
 ```

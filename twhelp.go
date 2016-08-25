@@ -18,8 +18,11 @@ func main() {
         format string
         t *oauth.Credential
         help bool
-        twist bool
-        var_ bool
+        ini bool
+        yaml bool
+        array bool
+        assoc bool
+        json bool
         xauth bool
         oauth_ bool
         ck string
@@ -31,8 +34,11 @@ func main() {
     util := utility.NewUtil()
     prompter := prompt.NewPrompter()
     getopt.BoolVarLong(&help, "help", 'h')
-    getopt.BoolVarLong(&twist, "twist", 't')
-    getopt.BoolVarLong(&var_, "var", 'v')
+    getopt.BoolVarLong(&ini, "ini", 'i')
+    getopt.BoolVarLong(&yaml, "yaml", 'y')
+    getopt.BoolVarLong(&array, "array", 'a')
+    getopt.BoolVarLong(&assoc, "assoc", 'A')
+    getopt.BoolVarLong(&json, "json", 'j')
     getopt.BoolVarLong(&oauth_, "oauth", 'o')
     getopt.BoolVarLong(&xauth, "xauth", 'x')
     getopt.StringVarLong(&ck, "ck", 0, "")
@@ -92,7 +98,7 @@ func main() {
                     "session[password]": {pw},
                 }))
                 if matches == nil {
-                    log.Fatalln("Wrong username or password")
+                    log.Fatalln("Wrong username or password. Otherwise, you may have to verify your email address.")
                 }
                 verifier := string(matches[1])
                 t = t.RenewWithAccessToken(map[string]string {}, &verifier)
@@ -106,19 +112,41 @@ func main() {
         t = t.RenewWithAccessToken(map[string]string {}, &verifier)
     }
 
-if (twist) {
-format = `$to = new \TwistOAuth(
+if (ini) {
+format = `consumer_key        = "%s"
+consumer_secret     = "%s"
+access_token        = "%s"
+access_token_secret = "%s"
+`
+} else if (yaml) {
+format = `consumer_key:        "%s"
+consumer_secret:     "%s"
+access_token:        "%s"
+access_token_secret: "%s"
+`
+} else if (array) {
+format = `[
     "%s",
     "%s",
     "%s",
     "%s"
-);
+]
 `
-} else if (var_) {
-format = `$ck = "%s";
-$cs = "%s";
-$ot = "%s";
-$os = "%s";
+} else if (assoc) {
+format = `[
+    "consumer_key"        => "%s",
+    "consumer_secret"     => "%s",
+    "access_token"        => "%s",
+    "access_token_secret" => "%s",
+]
+`
+} else if (json) {
+format = `{
+    "consumer_key":        "%s",
+    "consumer_secret":     "%s",
+    "access_token":        "%s",
+    "access_token_secret": "%s"
+}
 `
 } else {
 format = `%s
