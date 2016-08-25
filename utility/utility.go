@@ -60,12 +60,12 @@ func NewUtil() *Util {
         "yT577ApRtZw51q4NPMPPOQ",
         "3neq3XqN5fO3obqwZoajavGFCUrC42ZfbrLXy5sCv8",
     }
+    customAppNames := make([]string, 0)
     if _, err := os.Stat(util.ConfigPath); err == nil {
         cfg, err := ini.Load(util.ConfigPath)
         if err != nil {
             log.Fatalln(err)
         }
-        customAppNames := make([]string, 0)
         for _, name := range cfg.SectionStrings() {
             if name == "DEFAULT" {
                 continue
@@ -82,23 +82,22 @@ func NewUtil() *Util {
             util.Apps[name] = &[]string{ck.String(), cs.String()}
             customAppNames = append(customAppNames, name)
         }
-        if len(customAppNames) > 0 {
-            util.CustomAppNames = fmt.Sprintf(
-                "Config File: %s\nCustom Apps: %s\n",
-                util.ConfigPath,
-                strings.Join(customAppNames, ", "),
-            )
-        } else {
-            util.CustomAppNames = fmt.Sprintf(
-                `
-Your own applications also can be defined in %s
+    }
+    if len(customAppNames) > 0 {
+        util.CustomAppNames = fmt.Sprintf(
+            "Config File: %s\nCustom Apps: %s\n",
+            util.ConfigPath,
+            strings.Join(customAppNames, ", "),
+        )
+    } else {
+        util.CustomAppNames = fmt.Sprintf(
+            `Your own applications also can be defined in %s
 Example:
 
 [my_app_01]
 consumer_key    = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 consumer_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 `, util.ConfigPath)
-        }
     }
     return util
 }
