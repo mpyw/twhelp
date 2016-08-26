@@ -20,7 +20,7 @@ func (pr *Prompter) PromptTrimmed(caption string) string {
     os.Stderr.WriteString(caption)
     text, err := pr.br.ReadString('\n')
     if err != nil {
-        os.Stderr.WriteString("\r\n")
+        os.Stderr.WriteString("\n")
         log.Fatalln(err)
     }
     return strings.TrimSpace(text)
@@ -29,8 +29,8 @@ func (pr *Prompter) PromptTrimmed(caption string) string {
 func (pr *Prompter) PromptMasked(caption string) string {
     os.Stderr.WriteString(caption)
     text, err := gopass.GetPasswd()
+    os.Stderr.WriteString("\r")
     if err != nil {
-        os.Stderr.WriteString("\r")
         log.Fatalln(err)
     }
     return string(text)
