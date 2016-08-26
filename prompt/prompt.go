@@ -3,25 +3,35 @@ package prompt
 import (
     "bufio"
     "github.com/howeyc/gopass"
+    "log"
     "os"
     "strings"
 )
 
 type Prompter struct {
-    bs *bufio.Scanner
+    br *bufio.Reader
 }
 
 func NewPrompter() *Prompter {
-    return &Prompter{bufio.NewScanner(os.Stdin)}
+    return &Prompter{bufio.NewReader(os.Stdin)}
 }
 
 func (pr *Prompter) PromptTrimmed(caption string) string {
     os.Stderr.WriteString(caption)
-    pr.bs.Scan()
-    return strings.TrimSpace(pr.bs.Text())
+    text, err := pr.br.ReadString('\n')
+    if err != nil {
+        os.Stderr.WriteString("\r\n")
+        log.Fatalln(err)
+    }
+    return strings.TrimSpace(text)
 }
 
 func (pr *Prompter) PromptMasked(caption string) string {
     os.Stderr.WriteString(caption)
-    return string(gopass.GetPasswd())
+    text, err := gopass.GetPasswd()
+    if err != nil {
+        os.Stderr.WriteString("\r")
+        log.Fatalln(err)
+    }
+    return string(text)
 }
