@@ -112,9 +112,10 @@ Options:
   Default             Output line by line.
   -i, --ini           Output as INI.
   -y, --yaml          Output as YAML.
+  -j, --json          Output as JSON.
   -a, --array         Output as array that compatible with most languages.
   -A, --assoc         Output as PHP-style associative array.
-  -j, --json          Output as JSON.
+  -e, --env           Output as environmental uppercase variables.
 
 [ OAuth Process ]
 

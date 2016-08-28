@@ -23,6 +23,7 @@ func main() {
         array  bool
         assoc  bool
         json   bool
+        env    bool
         xauth  bool
         oauth_ bool
         ck     string
@@ -39,6 +40,7 @@ func main() {
     getopt.BoolVarLong(&array, "array", 'a')
     getopt.BoolVarLong(&assoc, "assoc", 'A')
     getopt.BoolVarLong(&json, "json", 'j')
+    getopt.BoolVarLong(&env, "env", 'e')
     getopt.BoolVarLong(&oauth_, "oauth", 'o')
     getopt.BoolVarLong(&xauth, "xauth", 'x')
     getopt.StringVarLong(&ck, "ck", 0, "")
@@ -147,6 +149,12 @@ access_token_secret: "%s"
     "access_token":        "%s",
     "access_token_secret": "%s"
 }
+`
+    } else if env {
+        format = `CONSUMER_KEY="%s"
+CONSUMER_SECRET="%s"
+ACCESS_TOKEN="%s"
+ACCESS_TOKEN_SECRET="%s"
 `
     } else {
         format = `%s
