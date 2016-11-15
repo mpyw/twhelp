@@ -46,7 +46,7 @@ Options:
                       app name | full name
                       ------------------------------------
                       android  | Twitter for Andriod
-                      win      | Twitter for Andriod
+                      win      | Twitter for Windows
                       wp       | Twitter for Windows Phone
                       google   | Twitter for Google TV
                       iphone   | Twitter for iPhone
