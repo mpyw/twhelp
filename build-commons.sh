@@ -21,7 +21,7 @@ docker run --rm -it -v "$PWD":/_ -w /_ golang:1.13 bash -c '
         [ "$os" = "windows" ] && suffix=".exe" || suffix=""
         dirname="dist/$os"
         filename="twhelp$suffix"
-        zipname="../twhelp-x64$os.zip"
+        zipname="../twhelp-x64$os-$1.zip"
         (cd "$dirname" && zip "$zipname" "$filename") &
     done
 
