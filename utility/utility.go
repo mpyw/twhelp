@@ -113,7 +113,7 @@ Options:
   -i, --ini           Output as INI.
   -y, --yaml          Output as YAML.
   -j, --json          Output as JSON.
-  -a, --array         Output as array that compatible with most languages.
+  -a, --array         Output as array compatible with most languages.
   -A, --assoc         Output as PHP-style associative array.
   -e, --env           Output as environmental uppercase variables.
 
@@ -125,7 +125,7 @@ Options:
 
 [ OAuth Credentials ]
 
-  Insufficient components are required to input via STDIN.
+  Insufficient components will be required to input via STDIN.
   Password is masked.
 
   --ck  <value>       Specify consumer_key in advance.
