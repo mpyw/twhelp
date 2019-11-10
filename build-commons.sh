@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker run --rm -it -v "$PWD":/_ -w /_ golang:1.7 bash -c '
+docker run --rm -it -v "$PWD":/_ -w /_ golang:1.13 bash -c '
 
     go get -d ./...
 
