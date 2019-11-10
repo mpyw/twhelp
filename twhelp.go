@@ -100,7 +100,7 @@ func main() {
 					"session[password]":          {pw},
 				}))
 				if matches == nil {
-					log.Fatalln("Wrong username or password. Otherwise, you may have to verify your email address.")
+					log.Fatalln("Wrong username or password, otherwise you may have to verify your email address.")
 				}
 				verifier := string(matches[1])
 				t = t.RenewWithAccessToken(map[string]string{}, &verifier)

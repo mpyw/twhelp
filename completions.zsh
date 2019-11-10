@@ -9,7 +9,7 @@ _twhelp() {
         '(-i --ini -y -a -A -j -e -h --yaml --array --assoc --json --env --help)'{-i,--ini}'[Output as INI.]' \
         '(-y --yaml -i -a -A -j -e -h --ini --array --assoc --json --env --help)'{-y,--yaml}'[Output as YAML.]' \
         '(-j --json -i -y -a -A -e -h --ini --yaml --array --assoc --env --help)'{-j,--json}'[Output as JSON.]' \
-        '(-a --array -i -y -A -j -e -h --ini --yaml --assoc --json --env --help)'{-a,--array}'[Output as array that compatible with most languages]' \
+        '(-a --array -i -y -A -j -e -h --ini --yaml --assoc --json --env --help)'{-a,--array}'[Output as array compatible with most languages]' \
         '(-A --assoc -i -y -a -j -e -h --ini --yaml --array --json --env --help)'{-A,--assoc}'[Output as PHP-style associative array.]' \
         '(-e --env -i -y -a -j -h --ini --yaml --array --json --help)'{-e,--env}'[Output as environmental uppercase variables.]' \
         '(-x --xauth -o -h --oauth --help)'{-x,--xauth}'[Pure xAuth. Only available with official keys.]' \

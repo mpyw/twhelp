@@ -22,7 +22,7 @@ Options:
   -i, --ini           Output as INI.
   -y, --yaml          Output as YAML.
   -j, --json          Output as JSON.
-  -a, --array         Output as array that compatible with most languages.
+  -a, --array         Output as array compatible with most languages.
   -A, --assoc         Output as PHP-style associative array.
   -e, --env           Output as environmental uppercase variables.
 
@@ -34,7 +34,7 @@ Options:
 
 [ OAuth Credentials ]
 
-  Insufficient components are required to input via STDIN.
+  Insufficient components will be required to input via STDIN.
   Password is masked.
 
   --ck  <value>       Specify consumer_key in advance.
@@ -54,7 +54,7 @@ Options:
                       mac      | Twitter for Mac
                       deck     | TweetDeck
 
-Your own applications also can be defined in /Users/mpyw/.twhelp.ini
+Your own applications can also be defined in /Users/mpyw/.twhelp.ini
 Example:
 
 [my_app_01]
