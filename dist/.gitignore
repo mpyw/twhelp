@@ -1,0 +1,6 @@
+/*
+!/.gitignore
+!/darwin/
+!/freebsd/
+!/linux/
+!/windows/
